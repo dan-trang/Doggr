@@ -3,8 +3,9 @@ import { promises as fs } from "fs";
 import path from "path";
 import express from "express";
 import { testMongo, testPostgres } from "./lib/helpers";
-import { checkDuplicateEmail } from "./middlewares/verifySignUp";
+import { checkDuplicateEmail, checkDuplicateName } from "./middlewares/verifySignUp";
 import { createUser } from "./services/userService";
+import { createProfile } from "./services/profileService";
 
 export default function setupRoutes(app) {
 
@@ -16,7 +17,8 @@ export default function setupRoutes(app) {
 
   router.post("/users", checkDuplicateEmail, createUser );
 
-
+  //homework 3...
+  router.post("/profiles", checkDuplicateName, createProfile);
 
   router.use("/testJson", (req, res) => {
     res.json(req.body);
